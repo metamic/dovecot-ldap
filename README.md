@@ -39,6 +39,8 @@ The most simple use would be to start the application like so :
     --link ldap-container:ldap
     -e LDAP_USER_FIELD="uid"
     -e LDAP_BASE="ou=users,dc=yourdomain,dc=com"
+    -e LDAP_BIND_DN="cn=dovecot,dc=example,dc=com"
+    -e LDAP_BIND_DNPASS="password"
     teid/dovecot-ldap
 
 However, you should use your own certificate and a data-only container to store the mailboxes
@@ -50,10 +52,14 @@ However, you should use your own certificate and a data-only container to store 
     --volumes-from imap-data
     -e LDAP_USER_FIELD="uid"
     -e LDAP_BASE="ou=users,dc=yourdomain,dc=com"
+    -e LDAP_BIND_DN="cn=dovecot,dc=example,dc=com"
+    -e LDAP_BIND_DNPASS="password"
     teid/dovecot-ldap
 
 The following environment variables allows you to override some LDAP configurations:
 * LDAP_BASE: The base dn of the LDAP users
+* LDAP_BIND_DN (required): The bind dn of the LDAP user
+* LDAP_BIND_DNPASS (required): The bind dn password of the LDAP user
 * LDAP_USER_FIELD: The field name of your LDAP users used as `username` field
 * SSL_KEY_PATH: The SSL private key path
 * SSL_CERT_PATH: The SSL certificate path

@@ -18,6 +18,16 @@ if [ -n "$LDAP_BASE" ]; then
 	setDovecotConf "base" "$LDAP_BASE" /etc/dovecot/dovecot-ldap.conf.ext
 fi
 
+# Set LDAP conf: bind_dn (ex: cn=dovecot, dc=example, dc=com)
+if [ -n "$LDAP_BIND_DN" ]; then
+	sed -i "s/^dn = .*$/dn = $LDAP_BIND_DN/" /etc/dovecot/dovecot-ldap.conf.ext
+fi
+
+# Set LDAP conf: bind_dn (ex: 'password123!@#')
+if [ -n "$LDAP_BIND_DNPASS" ]; then
+	 sed -i "s/^dnpass = .*$/dnpass = \'$LDAP_BIND_DNPASS\'/" /etc/dovecot/dovecot-ldap.conf.ext
+fi
+
 # Set LDAP conf: user_filter and pass_filter (ex: user_filter = (uid=%n))
 if [ -n "$LDAP_USER_FIELD" ]; then
 	setDovecotConf "user_filter" "($LDAP_USER_FIELD=%n)" /etc/dovecot/dovecot-ldap.conf.ext
